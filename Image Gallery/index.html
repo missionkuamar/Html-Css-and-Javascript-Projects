@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <!-- Include Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-gray-100 to-blue-200">
+    <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Image Gallery</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Sample images (replace src with your own image URLs) -->
+            <img src="https://picsum.photos/500/300?random=1" alt="Image 1" class="gallery-img w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80" onclick="openModal(this.src)">
+            <img src="https://picsum.photos/500/300?random=2" alt="Image 2" class="gallery-img w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80" onclick="openModal(this.src)">
+            <img src="https://picsum.photos/500/300?random=3" alt="Image 3" class="gallery-img w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80" onclick="openModal(this.src)">
+            <img src="https://picsum.photos/500/300?random=4" alt="Image 4" class="gallery-img w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80" onclick="openModal(this.src)">
+            <img src="https://picsum.photos/500/300?random=5" alt="Image 5" class="gallery-img w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80" onclick="openModal(this.src)">
+            <img src="https://picsum.photos/500/300?random=6" alt="Image 6" class="gallery-img w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80" onclick="openModal(this.src)">
+            <img src="https://picsum.photos/500/300?random=7" alt="Image 7" class="gallery-img w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80" onclick="openModal(this.src)">
+            <img src="https://picsum.photos/500/300?random=8" alt="Image 8" class="gallery-img w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-80" onclick="openModal(this.src)">
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden">
+        <div class="relative max-w-4xl w-full">
+            <img id="modal-img" src="" alt="Modal Image" class="w-full h-auto rounded-lg">
+            <button id="close-modal" class="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600">X</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <!-- Include Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-200 to-purple-300 flex items-center justify-center">
+    <div class="container bg-white rounded-lg shadow-lg p-6 w-full max-w-3xl">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Image Slider</h1>
+        <div class="relative w-full h-96 overflow-hidden rounded-lg">
+            <!-- Images -->
+            <div id="slider" class="flex transition-transform duration-500 ease-in-out">
+                <img src="https://picsum.photos/800/400?random=1" alt="Image 1" class="w-full h-full object-cover flex-shrink-0">
+                <img src="https://picsum.photos/800/400?random=2" alt="Image 2" class="w-full h-full object-cover flex-shrink-0">
+                <img src="https://picsum.photos/800/400?random=3" alt="Image 3" class="w-full h-full object-cover flex-shrink-0">
+                <img src="https://picsum.photos/800/400?random=4" alt="Image 4" class="w-full h-full object-cover flex-shrink-0">
+            </div>
+            <!-- Navigation Buttons -->
+            <button id="prevBtn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75">←</button>
+            <button id="nextBtn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-800 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75">→</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

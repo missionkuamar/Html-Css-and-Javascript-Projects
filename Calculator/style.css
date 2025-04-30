@@ -1,0 +1,36 @@
+/* Calculator Styling */
+.calculator {
+    border: 1px solid #e5e7eb;
+   }
+   
+   /* Button Styling */
+   .btn {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+   }
+   
+   /* Display Styling */
+   .display {
+    font-family: 'Arial', sans-serif;
+    overflow-x: auto;
+    scrollbar-width: none;
+    min-height: 50px;
+   }
+   
+   .display::-webkit-scrollbar {
+    display: none;
+   }
+   
+   /* Responsive Design */
+   @media (max-width: 640px) {
+    .calculator {
+    width: 90%;
+    }
+    .btn {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    }
+   }

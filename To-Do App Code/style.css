@@ -1,0 +1,22 @@
+/* Task Item Styling */
+.task-item {
+  transition: background-color 0.3s ease;
+}
+
+/* Hover Effect for Buttons */
+button:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .todo-app {
+    width: 90%;
+  }
+  .task-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}

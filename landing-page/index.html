@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaSly - Your Analytics & Subscription Solution</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-sans">
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full bg-white shadow-md z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-600">SaaSly</h1>
+      <div class="space-x-4">
+        <a href="#home" class="text-gray-600 hover:text-blue-600">Home</a>
+        <a href="#features" class="text-gray-600 hover:text-blue-600">Features</a>
+        <a href="#testimonials" class="text-gray-600 hover:text-blue-600">Testimonials</a>
+        <a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
+      </div>
+      <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Get Started</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 animate-fadeIn">Grow Your Business with SaaSly</h1>
+      <p class="text-lg sm:text-xl mb-6">Powerful analytics and subscription management to scale your SaaS effortlessly.</p>
+      <button class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100">Start Free Trial</button>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-16 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12">Why Choose SaaSly?</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+          <h3 class="text-xl font-semibold mb-2">Real-Time Analytics</h3>
+          <p class="text-gray-600">Track MRR, churn, and user activity with interactive dashboards.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+          <h3 class="text-xl font-semibold mb-2">Subscription Management</h3>
+          <p class="text-gray-600">Manage plans, payments, and renewals with ease.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+          <h3 class="text-xl font-semibold mb-2">Scalable Infrastructure</h3>
+          <p class="text-gray-600">Built to grow with your business, from startup to enterprise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+      <div class="testimonial-slider flex overflow-x-auto space-x-4">
+        <div class="min-w-[300px] bg-gray-100 p-6 rounded-lg">
+          <p class="text-gray-600 mb-4">"SaaSly transformed how we track our metrics. The analytics are a game-changer!"</p>
+          <p class="font-semibold">Jane Doe, CEO</p>
+        </div>
+        <div class="min-w-[300px] bg-gray-100 p-6 rounded-lg">
+          <p class="text-gray-600 mb-4">"Managing subscriptions has never been easier. Highly recommend!"</p>
+          <p class="font-semibold">John Smith, Founder</p>
+        </div>
+        <div class="min-w-[300px] bg-gray-100 p-6 rounded-lg">
+          <p class="text-gray-600 mb-4">"The support team is amazing, and the platform is super intuitive."</p>
+          <p class="font-semibold">Sarah Lee, CTO</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-gray-800 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">SaaSly</h3>
+          <p class="text-gray-400">Empowering businesses with analytics and subscription tools.</p>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Links</h3>
+          <ul class="space-y-2">
+            <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
+            <li><a href="#features" class="text-gray-400 hover:text-white">Features</a></li>
+            <li><a href="#testimonials" class="text-gray-400 hover:text-white">Testimonials</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact</h3>
+          <p class="text-gray-400">Email: support@saasly.com</p>
+          <p class="text-gray-400">Phone: +1 123-456-7890</p>
+        </div>
+      </div>
+      <p class="text-center text-gray-400 mt-8">&copy; 2025 SaaSly. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

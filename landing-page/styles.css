@@ -1,0 +1,33 @@
+/* Custom Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 1s ease-out;
+  }
+  
+  /* Smooth Scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Testimonial Slider */
+  .testimonial-slider {
+    scrollbar-width: thin;
+  }
+  
+  .testimonial-slider::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .testimonial-slider::-webkit-scrollbar-thumb {
+    background-color: #4b5563;
+    border-radius: 4px;
+  }
+  
+  /* Hover Effects */
+  button:hover, a:hover {
+    transition: all 0.3s ease;
+  }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <!-- Include Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-200 to-green-300 flex items-center justify-center">
+    <div class="container bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">BMI Calculator</h1>
+        <form id="bmiForm" class="space-y-4">
+            <!-- Weight Input -->
+            <div>
+                <label for="weight" class="block text-sm font-medium text-gray-700">Weight (kg)</label>
+                <input type="number" id="weight" name="weight" step="0.1" min="0" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter your weight" required>
+            </div>
+
+            <!-- Height Input -->
+            <div>
+                <label for="height" class="block text-sm font-medium text-gray-700">Height (m)</label>
+                <input type="number" id="height" name="height" step="0.01" min="0" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Enter your height" required>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="text-red-500 text-sm text-center"></div>
+
+            <!-- Calculate Button -->
+            <button type="submit" class="w-full bg-green-500 text-white p-2 rounded-lg hover:bg-green-600">Calculate BMI</button>
+        </form>
+
+        <!-- Result Display -->
+        <div id="result" class="hidden mt-6 p-4 bg-green-100 rounded-lg text-center">
+            <h2 class="text-lg font-semibold text-green-800">Your BMI</h2>
+            <p id="bmiValue" class="text-xl font-bold text-gray-800"></p>
+            <p id="bmiCategory" class="text-gray-700"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

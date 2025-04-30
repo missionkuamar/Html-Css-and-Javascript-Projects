@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My To-Do App</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gradient-to-r from-blue-200 to-purple-200 flex items-center justify-center min-h-screen">
+  <div class="todo-app bg-white rounded-xl shadow-lg p-6 w-full max-w-lg">
+    <h1 class="text-3xl font-bold text-center mb-6 text-purple-600">My To-Do App</h1>
+    
+    <!-- Input Section -->
+    <div class="flex mb-6 gap-2">
+      <input
+        type="text"
+        id="task-input"
+        class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+        placeholder="Enter your task..."
+      >
+      <button
+        onclick="addTask()"
+        class="bg-purple-500 text-white p-3 rounded-lg hover:bg-purple-600"
+      >
+        Add Task
+      </button>
+    </div>
+    
+    <!-- Task List -->
+    <ul id="task-list" class="space-y-3"></ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

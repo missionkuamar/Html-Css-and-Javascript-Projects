@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <!-- Include Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-200 to-purple-300 flex items-center justify-center">
+    <div class="container bg-white rounded-lg shadow-lg p-8 w-full max-w-lg">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Random Quote Generator</h1>
+        <div id="quote" class="text-center space-y-4">
+            <p id="quoteText" class="text-lg text-gray-700 italic">"Click the button to get a quote!"</p>
+            <p id="quoteAuthor" class="text-md font-semibold text-gray-600"></p>
+        </div>
+        <button id="getQuoteBtn" onclick="getRandomQuote()" class="w-full bg-purple-500 text-white p-2 rounded-lg hover:bg-purple-600 mt-6">New Quote</button>
+        <div id="errorMessage" class="text-red-500 text-sm text-center mt-4"></div>
+        <div id="loading" class="hidden text-center text-gray-600 mt-4">Loading...</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
