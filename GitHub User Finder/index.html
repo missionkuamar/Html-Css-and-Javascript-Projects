@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub User Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-900 min-h-screen text-white">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
+                GitHub User Finder
+            </h1>
+            <p class="text-gray-400">Search for any GitHub profile and view their details</p>
+        </header>
+
+        <div class="max-w-2xl mx-auto">
+            <div class="flex mb-8">
+                <input 
+                    type="text" 
+                    id="username" 
+                    placeholder="Enter GitHub username..." 
+                    class="flex-grow px-4 py-3 rounded-l-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                <button 
+                    id="search-btn" 
+                    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-r-lg font-medium transition-colors"
+                >
+                    Search
+                </button>
+            </div>
+
+            <div id="error" class="hidden mb-8 p-4 bg-red-900/50 border border-red-700 rounded-lg"></div>
+
+            <div id="profile" class="hidden bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                <div class="md:flex">
+                    <div class="p-6 md:p-8 text-center md:text-left md:border-r border-gray-700">
+                        <div class="flex justify-center md:block">
+                            <img id="avatar" src="" alt="Profile" class="w-32 h-32 rounded-full mb-4 border-4 border-blue-500/50">
+                        </div>
+                        <h2 id="name" class="text-2xl font-bold mb-1"></h2>
+                        <p id="login" class="text-blue-400 mb-3"></p>
+                        <p id="bio" class="text-gray-400 mb-4"></p>
+                        <div class="flex justify-center md:block space-x-4">
+                            <div class="flex items-center text-gray-400">
+                                <i class="fas fa-users mr-2"></i>
+                                <span id="followers"></span> followers
+                            </div>
+                            <div class="flex items-center text-gray-400">
+                                <span id="following"></span> following
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 md:p-8 flex-grow">
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-gray-900/50 p-4 rounded-lg">
+                                <h3 class="text-gray-400 text-sm mb-1">Public Repos</h3>
+                                <p id="repos" class="text-xl font-bold"></p>
+                            </div>
+                            <div class="bg-gray-900/50 p-4 rounded-lg">
+                                <h3 class="text-gray-400 text-sm mb-1">Public Gists</h3>
+                                <p id="gists" class="text-xl font-bold"></p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-gray-500 w-6"></i>
+                                <span id="location" class="text-gray-400"></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-link text-gray-500 w-6"></i>
+                                <a id="blog" href="#" target="_blank" class="text-blue-400 hover:underline"></a>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-building text-gray-500 w-6"></i>
+                                <span id="company" class="text-gray-400"></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar-alt text-gray-500 w-6"></i>
+                                <span id="created" class="text-gray-400"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-gray-900/50 border-t border-gray-700">
+                    <h3 class="text-gray-400 mb-2">Latest Repositories</h3>
+                    <div id="repos" class="space-y-2"></div>
+                </div>
+            </div>
+
+            <div id="loader" class="hidden text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+                <p>Loading profile...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

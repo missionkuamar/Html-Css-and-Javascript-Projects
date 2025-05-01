@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Scroll Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Infinite Scroll Demo</h1>
+        
+        <div id="content-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Content will be loaded here -->
+        </div>
+        
+        <div id="loading-spinner" class="flex justify-center my-8 hidden">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+        
+        <div id="end-message" class="text-center py-8 text-gray-500 hidden">
+            You've reached the end of the content.
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

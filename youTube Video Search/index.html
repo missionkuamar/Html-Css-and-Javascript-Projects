@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-red-600 mb-2">YouTube Video Search</h1>
+            <p class="text-gray-600">Search and discover videos from YouTube</p>
+        </header>
+
+        <div class="max-w-2xl mx-auto mb-8">
+            <div class="flex shadow-md rounded-lg overflow-hidden">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search for videos..." 
+                    class="flex-grow px-4 py-3 focus:outline-none"
+                >
+                <button 
+                    id="searchButton" 
+                    class="bg-red-600 text-white px-6 py-3 hover:bg-red-700 transition"
+                >
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </div>
+
+        <div class="mb-4 flex justify-center">
+            <div class="inline-flex rounded-md shadow-sm">
+                <button 
+                    id="filterAll" 
+                    class="px-4 py-2 text-sm font-medium rounded-l-lg bg-red-600 text-white"
+                >
+                    All
+                </button>
+                <button 
+                    id="filterHD" 
+                    class="px-4 py-2 text-sm font-medium border-t border-b border-gray-200 bg-white"
+                >
+                    HD Only
+                </button>
+                <button 
+                    id="filterShort" 
+                    class="px-4 py-2 text-sm font-medium rounded-r-lg border border-gray-200 bg-white"
+                >
+                    Shorts
+                </button>
+            </div>
+        </div>
+
+        <div id="loading" class="text-center hidden">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-red-600 mb-2"></div>
+            <p>Loading videos...</p>
+        </div>
+
+        <div id="resultsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Videos will be displayed here -->
+            <div class="text-center py-10 text-gray-500">
+                <i class="fas fa-youtube text-4xl mb-2 text-red-600"></i>
+                <p>Enter a search term to find YouTube videos</p>
+            </div>
+        </div>
+
+        <div id="pagination" class="mt-8 flex justify-center hidden">
+            <button id="prevPage" class="px-4 py-2 mx-1 rounded bg-gray-200 hover:bg-gray-300">Previous</button>
+            <div id="pageInfo" class="px-4 py-2 mx-1">Page 1 of 1</div>
+            <button id="nextPage" class="px-4 py-2 mx-1 rounded bg-gray-200 hover:bg-gray-300">Next</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

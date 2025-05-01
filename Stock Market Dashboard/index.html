@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" class="dark:bg-gray-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+        .modal { transition: opacity 0.3s ease, transform 0.3s ease; }
+        .modal-open { opacity: 1; transform: translateY(0); }
+        .modal-closed { opacity: 0; transform: translateY(-20px); }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans transition-colors duration-300 dark:bg-gray-800 dark:text-white">
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="bg-gray-800 text-white w-64 p-4 hidden md:block">
+            <h2 class="text-2xl font-bold mb-6">Stock Dashboard</h2>
+            <nav>
+                <a href="#" id="dashboardLink" class="block py-2 px-4 rounded hover:bg-gray-700">Dashboard</a>
+                <a href="#" id="watchlistLink" class="block py-2 px-4 rounded hover:bg-gray-700">Watchlist</a>
+                <button id="themeToggle" class="mt-4 w-full py-2 px-4 bg-blue-500 rounded hover:bg-blue-600">Toggle Dark Mode</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-4 md:p-8">
+            <!-- Header -->
+            <header class="bg-white shadow p-4 rounded-lg mb-6 dark:bg-gray-700">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Stock Market Dashboard</h1>
+                    <div class="flex gap-4 mt-4 md:mt-0">
+                        <input type="text" id="searchInput" placeholder="Search stocks (e.g., AAPL)" class="p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-600 dark:text-white">
+                        <button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Search</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <div id="dashboardSection">
+                <!-- Stock Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                    <div id="stockOverview" class="bg-white p-6 rounded-lg shadow card-hover dark:bg-gray-700"></div>
+                </div>
+
+                <!-- Chart -->
+                <div class="bg-white p-6 rounded-lg shadow mb-6 dark:bg-gray-700">
+                    <div class="flex gap-4 mb-4">
+                        <button class="time-range bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600" data-range="1D">1D</button>
+                        <button class="time-range bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 dark:bg-gray-600 dark:text-white" data-range="1W">1W</button>
+                        <button class="time-range bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 dark:bg-gray-600 dark:text-white" data-range="1M">1M</button>
+                        <button class="time-range bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 dark:bg-gray-600 dark:text-white" data-range="1Y">1Y</button>
+                    </div>
+                    <canvas id="stockChart"></canvas>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loading" class="text-center hidden">
+                    <svg class="animate-spin h-8 w-8 mx-auto text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                </div>
+
+                <!-- Error Message -->
+                <div id="error" class="text-red-500 text-center hidden dark:text-red-400"></div>
+            </div>
+
+            <!-- Watchlist Section -->
+            <div id="watchlistSection" class="hidden">
+                <h2 class="text-2xl font-bold mb-4">Watchlist</h2>
+                <div id="watchlist" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Stock Details -->
+    <div id="stockModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg max-w-2xl w-full modal modal-closed dark:bg-gray-700 dark:text-white">
+            <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
+            <p id="modalPrice" class="text-gray-600 mb-2 dark:text-gray-300"></p>
+            <p id="modalChange" class="text-gray-600 mb-2 dark:text-gray-300"></p>
+            <p id="modalVolume" class="text-gray-600 mb-2 dark:text-gray-300"></p>
+            <p id="modalMarketCap" class="text-gray-600 mb-4 dark:text-gray-300"></p>
+            <button id="addToWatchlist" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Add to Watchlist</button>
+            <button id="closeModal" class="ml-4 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-white">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Recipe Finder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">🍳 Food Recipe Finder</h1>
+            <p class="text-gray-600">Discover delicious recipes for any occasion</p>
+        </header>
+
+        <!-- Search Section -->
+        <div class="max-w-2xl mx-auto mb-12">
+            <div class="flex shadow-lg rounded-lg overflow-hidden">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search for recipes (e.g., pasta, chicken, vegetarian)..."
+                    class="flex-grow px-4 py-3 focus:outline-none"
+                >
+                <button 
+                    id="searchBtn"
+                    class="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 transition duration-200"
+                >
+                    <i class="fas fa-search mr-2"></i> Search
+                </button>
+            </div>
+
+            <!-- Health Filters -->
+            <div class="flex flex-wrap gap-2 mt-4 justify-center">
+                <button class="health-filter bg-white px-3 py-1 rounded-full text-sm shadow hover:bg-amber-50 border border-amber-200" data-filter="vegetarian">Vegetarian</button>
+                <button class="health-filter bg-white px-3 py-1 rounded-full text-sm shadow hover:bg-amber-50 border border-amber-200" data-filter="vegan">Vegan</button>
+                <button class="health-filter bg-white px-3 py-1 rounded-full text-sm shadow hover:bg-amber-50 border border-amber-200" data-filter="gluten-free">Gluten-Free</button>
+                <button class="health-filter bg-white px-3 py-1 rounded-full text-sm shadow hover:bg-amber-50 border border-amber-200" data-filter="dairy-free">Dairy-Free</button>
+                <button class="health-filter bg-white px-3 py-1 rounded-full text-sm shadow hover:bg-amber-50 border border-amber-200" data-filter="low-sugar">Low-Sugar</button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Recipe cards will be inserted here by JavaScript -->
+            <div class="text-center py-12 text-gray-500">
+                <i class="fas fa-utensils text-4xl mb-4"></i>
+                <p>Search for recipes to get started</p>
+            </div>
+        </div>
+
+        <!-- Loading Spinner (hidden by default) -->
+        <div id="loadingSpinner" class="hidden text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500 mb-4"></div>
+            <p>Searching for recipes...</p>
+        </div>
+
+        <!-- Error Message (hidden by default) -->
+        <div id="errorMessage" class="hidden text-center py-12 text-red-500">
+            <i class="fas fa-exclamation-circle text-4xl mb-4"></i>
+            <p class="text-xl">Failed to fetch recipes. Please try again later.</p>
+        </div>
+    </div>
+
+    <!-- Recipe Modal (hidden by default) -->
+    <div id="recipeModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-start mb-4">
+                    <h2 id="modalRecipeTitle" class="text-2xl font-bold text-gray-800"></h2>
+                    <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <img id="modalRecipeImage" src="" alt="" class="w-full h-64 object-cover rounded-lg mb-4">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">Ingredients</h3>
+                        <ul id="modalRecipeIngredients" class="list-disc pl-5 space-y-1 text-gray-700"></ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2 text-gray-800">Nutrition Info</h3>
+                        <div id="modalRecipeNutrition" class="text-gray-700"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-2 text-gray-800">Instructions</h3>
+                    <div id="modalRecipeInstructions" class="text-gray-700"></div>
+                </div>
+                
+                <div class="mt-6">
+                    <a id="modalRecipeUrl" href="#" target="_blank" class="inline-block bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded transition duration-200">
+                        View Full Recipe <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Card Hover Effects</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Animated Card Hover Effects</h1>
+        
+        <div class="card-grid">
+            <!-- Effect 1: 3D Flip -->
+            <div class="card flip-effect">
+                <div class="card-front">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>3D Flip Effect</h3>
+                </div>
+                <div class="card-back">
+                    <p>This card flips in 3D space when hovered, revealing additional content on the back.</p>
+                    <button>Learn More</button>
+                </div>
+            </div>
+            
+            <!-- Effect 2: Glow & Scale -->
+            <div class="card glow-effect">
+                <div class="card-content">
+                    <i class="fas fa-fire"></i>
+                    <h3>Glow Effect</h3>
+                    <p>Hover to see a glowing border and slight scale increase.</p>
+                </div>
+            </div>
+            
+            <!-- Effect 3: Slide Up Content -->
+            <div class="card slide-up-effect">
+                <div class="card-image">
+                    <img src="https://via.placeholder.com/300x200" alt="Placeholder">
+                </div>
+                <div class="card-content">
+                    <h3>Slide Up Effect</h3>
+                    <p>Additional content slides up on hover.</p>
+                    <div class="hidden-content">
+                        <p>This content is revealed when you hover over the card.</p>
+                        <button>View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Effect 4: Gradient Border -->
+            <div class="card gradient-border-effect">
+                <div class="card-content">
+                    <i class="fas fa-palette"></i>
+                    <h3>Gradient Border</h3>
+                    <p>On hover, a beautiful animated gradient border appears.</p>
+                </div>
+            </div>
+            
+            <!-- Effect 5: Tilt Effect -->
+            <div class="card tilt-effect" data-tilt>
+                <div class="card-content">
+                    <i class="fas fa-arrows-alt"></i>
+                    <h3>Tilt Effect</h3>
+                    <p>This card tilts based on mouse position.</p>
+                </div>
+            </div>
+            
+            <!-- Effect 6: Parallax Effect -->
+            <div class="card parallax-effect">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <h3>Parallax Effect</h3>
+                    <p>The background moves at a different speed than the content.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+</body>
+</html>

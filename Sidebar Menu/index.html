@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expandable Sidebar Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 text-white transition-all duration-300 ease-in-out" id="sidebar">
+            <div class="p-4 flex items-center justify-between border-b border-gray-700">
+                <h1 class="text-xl font-semibold whitespace-nowrap">My Dashboard</h1>
+                <button id="toggle-sidebar" class="text-gray-400 hover:text-white focus:outline-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700">
+                            <i class="fas fa-home mr-3"></i>
+                            <span class="whitespace-nowrap">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700">
+                            <i class="fas fa-users mr-3"></i>
+                            <span class="whitespace-nowrap">Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700">
+                            <i class="fas fa-chart-bar mr-3"></i>
+                            <span class="whitespace-nowrap">Analytics</span>
+                        </a>
+                    </li>
+                    <li class="pt-4 mt-4 border-t border-gray-700">
+                        <p class="text-xs uppercase text-gray-400 mb-2">Settings</p>
+                        <ul class="space-y-2">
+                            <li>
+                                <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700">
+                                    <i class="fas fa-cog mr-3"></i>
+                                    <span class="whitespace-nowrap">Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="flex items-center p-2 rounded hover:bg-gray-700">
+                                    <i class="fas fa-question-circle mr-3"></i>
+                                    <span class="whitespace-nowrap">Help</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto p-8">
+            <h2 class="text-2xl font-bold mb-6">Welcome to your dashboard</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Content cards here -->
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold mb-2">Card 1</h3>
+                    <p>Some content here...</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold mb-2">Card 2</h3>
+                    <p>Some content here...</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <h3 class="text-lg font-semibold mb-2">Card 3</h3>
+                    <p>Some content here...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // JavaScript for sidebar toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const toggleButton = document.getElementById('toggle-sidebar');
+            let isCollapsed = false;
+            
+            // Check localStorage for saved state
+            if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                collapseSidebar();
+            }
+            
+            // Toggle sidebar on button click
+            toggleButton.addEventListener('click', function() {
+                if (isCollapsed) {
+                    expandSidebar();
+                } else {
+                    collapseSidebar();
+                }
+            });
+            
+            function collapseSidebar() {
+                sidebar.classList.add('w-20');
+                sidebar.classList.remove('w-64');
+                
+                // Hide text spans and only show icons
+                const spans = sidebar.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.classList.add('hidden');
+                });
+                
+                // Adjust icons
+                const icons = sidebar.querySelectorAll('i');
+                icons.forEach(icon => {
+                    icon.classList.remove('mr-3');
+                });
+                
+                // Hide section titles
+                const sectionTitles = sidebar.querySelectorAll('p.text-xs');
+                sectionTitles.forEach(title => {
+                    title.classList.add('hidden');
+                });
+                
+                isCollapsed = true;
+                localStorage.setItem('sidebarCollapsed', 'true');
+            }
+            
+            function expandSidebar() {
+                sidebar.classList.remove('w-20');
+                sidebar.classList.add('w-64');
+                
+                // Show text spans
+                const spans = sidebar.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.classList.remove('hidden');
+                });
+                
+                // Adjust icons back
+                const icons = sidebar.querySelectorAll('i');
+                icons.forEach(icon => {
+                    icon.classList.add('mr-3');
+                });
+                
+                // Show section titles
+                const sectionTitles = sidebar.querySelectorAll('p.text-xs');
+                sectionTitles.forEach(title => {
+                    title.classList.remove('hidden');
+                });
+                
+                isCollapsed = false;
+                localStorage.setItem('sidebarCollapsed', 'false');
+            }
+            
+            // Responsive behavior - collapse on small screens
+            function handleResize() {
+                if (window.innerWidth < 768) {
+                    collapseSidebar();
+                } else {
+                    // Restore to saved state on larger screens
+                    if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                        collapseSidebar();
+                    } else {
+                        expandSidebar();
+                    }
+                }
+            }
+            
+            // Initial check
+            handleResize();
+            
+            // Add resize listener
+            window.addEventListener('resize', handleResize);
+        });
+    </script>
+</body>
+</html>

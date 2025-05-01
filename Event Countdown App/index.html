@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Countdown App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">⏳ Event Countdown</h1>
+            <p class="text-gray-600">Track your upcoming events</p>
+        </header>
+
+        <!-- Add Event Form -->
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 mb-12">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">Add New Event</h2>
+            <form id="eventForm" class="space-y-4">
+                <div>
+                    <label for="eventName" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                    <input 
+                        type="text" 
+                        id="eventName" 
+                        required
+                        placeholder="e.g., Birthday Party, Vacation"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+                
+                <div>
+                    <label for="eventDate" class="block text-sm font-medium text-gray-700 mb-1">Event Date & Time</label>
+                    <input 
+                        type="datetime-local" 
+                        id="eventDate" 
+                        required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+                
+                <div>
+                    <label for="eventColor" class="block text-sm font-medium text-gray-700 mb-1">Event Color</label>
+                    <div class="flex space-x-2">
+                        <div class="color-option">
+                            <input type="radio" name="eventColor" id="colorBlue" value="bg-blue-500" checked class="hidden">
+                            <label for="colorBlue" class="block w-8 h-8 bg-blue-500 rounded-full cursor-pointer"></label>
+                        </div>
+                        <div class="color-option">
+                            <input type="radio" name="eventColor" id="colorRed" value="bg-red-500" class="hidden">
+                            <label for="colorRed" class="block w-8 h-8 bg-red-500 rounded-full cursor-pointer"></label>
+                        </div>
+                        <div class="color-option">
+                            <input type="radio" name="eventColor" id="colorGreen" value="bg-green-500" class="hidden">
+                            <label for="colorGreen" class="block w-8 h-8 bg-green-500 rounded-full cursor-pointer"></label>
+                        </div>
+                        <div class="color-option">
+                            <input type="radio" name="eventColor" id="colorPurple" value="bg-purple-500" class="hidden">
+                            <label for="colorPurple" class="block w-8 h-8 bg-purple-500 rounded-full cursor-pointer"></label>
+                        </div>
+                        <div class="color-option">
+                            <input type="radio" name="eventColor" id="colorYellow" value="bg-yellow-500" class="hidden">
+                            <label for="colorYellow" class="block w-8 h-8 bg-yellow-500 rounded-full cursor-pointer"></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button 
+                    type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200"
+                >
+                    Add Event
+                </button>
+            </form>
+        </div>
+
+        <!-- Events List -->
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">Your Events</h2>
+            
+            <div id="eventsContainer" class="space-y-4">
+                <!-- Events will be inserted here by JavaScript -->
+                <div class="text-center py-12 text-gray-500 bg-white rounded-lg shadow">
+                    <i class="fas fa-calendar-plus text-4xl mb-4"></i>
+                    <p>No events yet. Add your first event above!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Event Modal -->
+    <div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Edit Event</h3>
+                <button id="closeEditModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="editForm" class="space-y-4">
+                <input type="hidden" id="editEventId">
+                
+                <div>
+                    <label for="editEventName" class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                    <input 
+                        type="text" 
+                        id="editEventName" 
+                        required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+                
+                <div>
+                    <label for="editEventDate" class="block text-sm font-medium text-gray-700 mb-1">Event Date & Time</label>
+                    <input 
+                        type="datetime-local" 
+                        id="editEventDate" 
+                        required
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Event Color</label>
+                    <div class="flex space-x-2">
+                        <div class="color-option">
+                            <input type="radio" name="editEventColor" id="editColorBlue" value="bg-blue-500" class="hidden">
+                            <label for="editColorBlue" class="block w-8 h-8 bg-blue-500 rounded-full cursor-pointer"></label>
+                        </div>
+                        <div class="color-option">
+                            <input type="radio" name="editEventColor" id="editColorRed" value="bg-red-500" class="hidden">
+                            <label for="editColorRed" class="block w-8 h-8 bg-red-500 rounded-full cursor-pointer"></label>
+                        </div>
+                        <div class="color-option">
+                            <input type="radio" name="editEventColor" id="editColorGreen" value="bg-green-500" class="hidden">
+                            <label for="editColorGreen" class="block w-8 h-8 bg-green-500 rounded-full cursor-pointer"></label>
+                        </div>
+                        <div class="color-option">
+                            <input type="radio" name="editEventColor" id="editColorPurple" value="bg-purple-500" class="hidden">
+                            <label for="editColorPurple" class="block w-8 h-8 bg-purple-500 rounded-full cursor-pointer"></label>
+                        </div>
+                        <div class="color-option">
+                            <input type="radio" name="editEventColor" id="editColorYellow" value="bg-yellow-500" class="hidden">
+                            <label for="editColorYellow" class="block w-8 h-8 bg-yellow-500 rounded-full cursor-pointer"></label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <button 
+                        type="submit"
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md transition duration-200"
+                    >
+                        Save Changes
+                    </button>
+                    <button 
+                        type="button"
+                        id="deleteEventBtn"
+                        class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md transition duration-200"
+                    >
+                        Delete Event
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

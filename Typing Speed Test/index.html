@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Typing Speed Test</h1>
+        
+        <div class="test-controls">
+            <div class="timer-display">
+                Time: <span id="timer">60</span>s
+            </div>
+            <div class="wpm-display">
+                WPM: <span id="wpm">0</span>
+            </div>
+            <div class="accuracy-display">
+                Accuracy: <span id="accuracy">100</span>%
+            </div>
+            <button id="start-btn">Start Test</button>
+            <button id="new-test-btn" disabled>New Test</button>
+        </div>
+        
+        <div class="text-display" id="text-display"></div>
+        
+        <textarea 
+            id="typing-area" 
+            placeholder="Click 'Start Test' to begin..." 
+            disabled
+        ></textarea>
+        
+        <div class="result-modal" id="result-modal">
+            <div class="modal-content">
+                <h2>Test Results</h2>
+                <p>Words Per Minute: <span id="final-wpm">0</span></p>
+                <p>Accuracy: <span id="final-accuracy">0</span>%</p>
+                <p>Correct Characters: <span id="correct-chars">0</span></p>
+                <p>Incorrect Characters: <span id="incorrect-chars">0</span></p>
+                <button id="close-modal">Try Again</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

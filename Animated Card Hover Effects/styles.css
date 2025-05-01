@@ -1,0 +1,284 @@
+/* Base Styles */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --accent-color: #e74c3c;
+    --dark-color: #2c3e50;
+    --light-color: #ecf0f1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--dark-color);
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Base Card Styles */
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+.card p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.card button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.card button:hover {
+    background: var(--dark-color);
+}
+
+/* Flip Effect */
+.flip-effect {
+    perspective: 1000px;
+    height: 300px;
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.6s;
+}
+
+.card-front {
+    background: white;
+}
+
+.card-back {
+    background: var(--dark-color);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.card-back i {
+    color: white;
+}
+
+.flip-effect:hover .card-front {
+    transform: rotateY(-180deg);
+}
+
+.flip-effect:hover .card-back {
+    transform: rotateY(0deg);
+}
+
+/* Glow Effect */
+.glow-effect {
+    position: relative;
+    z-index: 1;
+}
+
+.glow-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.glow-effect:hover {
+    transform: translateY(-5px);
+}
+
+.glow-effect:hover::before {
+    opacity: 1;
+    animation: glowAnimation 2s infinite linear;
+}
+
+@keyframes glowAnimation {
+    0% {
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) border-box;
+    }
+    50% {
+        background: linear-gradient(45deg, var(--secondary-color), var(--accent-color)) border-box;
+    }
+    100% {
+        background: linear-gradient(45deg, var(--accent-color), var(--primary-color)) border-box;
+    }
+}
+
+/* Slide Up Effect */
+.slide-up-effect {
+    height: 400px;
+}
+
+.card-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.slide-up-effect:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.hidden-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.slide-up-effect:hover .hidden-content {
+    max-height: 200px;
+}
+
+/* Gradient Border Effect */
+.gradient-border-effect {
+    position: relative;
+    z-index: 1;
+}
+
+.gradient-border-effect::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%;
+    border-radius: 12px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    animation: gradientBorder 20s linear infinite;
+}
+
+.gradient-border-effect:hover::before {
+    opacity: 1;
+}
+
+@keyframes gradientBorder {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+/* Tilt Effect (requires vanilla-tilt.js) */
+.tilt-effect {
+    transition: transform 0.1s;
+}
+
+/* Parallax Effect */
+.parallax-effect {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://via.placeholder.com/600x400') center/cover;
+    transition: transform 0.3s ease;
+}
+
+.parallax-effect:hover .card-bg {
+    transform: scale(1.2);
+}
+
+.parallax-effect .card-content {
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.parallax-effect i {
+    color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Price Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-amber-400 mb-2">₿ Crypto Price Tracker</h1>
+            <p class="text-gray-400">Real-time cryptocurrency market data</p>
+        </header>
+
+        <!-- Market Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="bg-gray-800 rounded-lg p-4 shadow-lg">
+                <div class="flex items-center">
+                    <i class="fas fa-coins text-amber-400 text-2xl mr-3"></i>
+                    <div>
+                        <p class="text-gray-400 text-sm">Total Market Cap</p>
+                        <h3 id="marketCap" class="text-xl font-semibold">-</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 shadow-lg">
+                <div class="flex items-center">
+                    <i class="fas fa-exchange-alt text-amber-400 text-2xl mr-3"></i>
+                    <div>
+                        <p class="text-gray-400 text-sm">24h Volume</p>
+                        <h3 id="marketVolume" class="text-xl font-semibold">-</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-4 shadow-lg">
+                <div class="flex items-center">
+                    <i class="fas fa-chart-line text-amber-400 text-2xl mr-3"></i>
+                    <div>
+                        <p class="text-gray-400 text-sm">BTC Dominance</p>
+                        <h3 id="btcDominance" class="text-xl font-semibold">-</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="mb-8">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="relative flex-grow">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-500"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search cryptocurrencies..."
+                        class="w-full bg-gray-800 border border-gray-700 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    >
+                </div>
+                <select 
+                    id="currencySelect"
+                    class="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                >
+                    <option value="usd">USD</option>
+                    <option value="eur">EUR</option>
+                    <option value="gbp">GBP</option>
+                    <option value="jpy">JPY</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Cryptocurrency Table -->
+        <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden mb-8">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">#</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Coin</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Price</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">24h</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Market Cap</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-300 uppercase tracking-wider">Chart</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cryptoTable" class="divide-y divide-gray-700">
+                        <!-- Crypto data will be inserted here by JavaScript -->
+                        <tr>
+                            <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                                <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                                <p>Loading cryptocurrency data...</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Chart Modal -->
+        <div id="chartModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden">
+            <div class="bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 id="chartModalTitle" class="text-2xl font-bold text-amber-400"></h2>
+                        <button id="closeChartModal" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4 mb-6">
+                        <button class="chart-period-btn bg-amber-500 text-white px-3 py-1 rounded" data-days="1">24h</button>
+                        <button class="chart-period-btn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-days="7">7d</button>
+                        <button class="chart-period-btn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-days="14">14d</button>
+                        <button class="chart-period-btn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-days="30">30d</button>
+                        <button class="chart-period-btn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-days="90">90d</button>
+                        <button class="chart-period-btn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-days="180">180d</button>
+                        <button class="chart-period-btn bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded" data-days="365">1y</button>
+                    </div>
+                    
+                    <div class="bg-gray-900 p-4 rounded-lg mb-6">
+                        <canvas id="priceChart" height="400"></canvas>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <p class="text-gray-400 text-sm">Current Price</p>
+                            <h3 id="currentPrice" class="text-xl font-semibold">-</h3>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <p class="text-gray-400 text-sm">24h High</p>
+                            <h3 id="high24h" class="text-xl font-semibold">-</h3>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <p class="text-gray-400 text-sm">24h Low</p>
+                            <h3 id="low24h" class="text-xl font-semibold">-</h3>
+                        </div>
+                        <div class="bg-gray-700 p-4 rounded-lg">
+                            <p class="text-gray-400 text-sm">All-Time High</p>
+                            <h3 id="ath" class="text-xl font-semibold">-</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

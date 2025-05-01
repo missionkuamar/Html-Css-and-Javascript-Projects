@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Polling App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center text-indigo-700 mb-8">Real-Time Polling App</h1>
+        
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- Poll Question -->
+            <div class="p-6 border-b border-gray-200">
+                <h2 id="poll-question" class="text-xl font-semibold text-gray-800">What's your favorite programming language?</h2>
+                <p class="text-gray-500 mt-1">Vote and see results in real-time!</p>
+            </div>
+            
+            <!-- Poll Options (before voting) -->
+            <div id="poll-options" class="p-6">
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input type="radio" id="option1" name="poll" value="JavaScript" class="h-4 w-4 text-indigo-600">
+                        <label for="option1" class="ml-3 block text-gray-700">JavaScript</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="option2" name="poll" value="Python" class="h-4 w-4 text-indigo-600">
+                        <label for="option2" class="ml-3 block text-gray-700">Python</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="option3" name="poll" value="Java" class="h-4 w-4 text-indigo-600">
+                        <label for="option3" class="ml-3 block text-gray-700">Java</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="radio" id="option4" name="poll" value="C#" class="h-4 w-4 text-indigo-600">
+                        <label for="option4" class="ml-3 block text-gray-700">C#</label>
+                    </div>
+                </div>
+                <button id="vote-btn" class="mt-6 w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">
+                    Submit Vote
+                </button>
+            </div>
+            
+            <!-- Poll Results (after voting) -->
+            <div id="poll-results" class="p-6 hidden">
+                <div class="mb-6">
+                    <canvas id="results-chart"></canvas>
+                </div>
+                <div id="results-list" class="space-y-3"></div>
+                <p class="text-gray-500 mt-4 text-sm">Total votes: <span id="total-votes">0</span></p>
+                <button id="new-vote-btn" class="mt-6 w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition duration-200">
+                    Vote Again
+                </button>
+            </div>
+        </div>
+        
+        <!-- Admin Section (for demo purposes) -->
+        <div class="max-w-2xl mx-auto mt-8 bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-800">Admin Controls</h2>
+            </div>
+            <div class="p-6">
+                <div class="mb-4">
+                    <label for="new-question" class="block text-gray-700 mb-2">Poll Question:</label>
+                    <input type="text" id="new-question" value="What's your favorite programming language?" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Options:</label>
+                    <div class="space-y-2">
+                        <input type="text" value="JavaScript" class="option-input w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <input type="text" value="Python" class="option-input w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <input type="text" value="Java" class="option-input w-full px-3 py-2 border border-gray-300 rounded-md">
+                        <input type="text" value="C#" class="option-input w-full px-3 py-2 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <button id="update-poll-btn" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200">
+                    Update Poll
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

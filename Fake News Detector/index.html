@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            light: '#3b82f6',
+                            dark: '#2563eb'
+                        },
+                        secondary: {
+                            light: '#10b981',
+                            dark: '#059669'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .loading-spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .result-transition {
+            transition: all 0.3s ease-out;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen transition-colors duration-300">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-primary-dark dark:text-primary-light">Fake News Detector</h1>
+                <p class="text-gray-600 dark:text-gray-400">Analyze news articles for authenticity</p>
+            </div>
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:inline"></i>
+            </button>
+        </header>
+        
+        <!-- Main Content -->
+        <main>
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6 transition-colors duration-300">
+                <h2 class="text-xl font-semibold mb-4">Enter News Content</h2>
+                
+                <div class="mb-4">
+                    <label for="article-url" class="block text-sm font-medium mb-1">Article URL (optional)</label>
+                    <input type="url" id="article-url" placeholder="https://example.com/news-article" 
+                           class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:border-transparent">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="article-text" class="block text-sm font-medium mb-1">Or paste article text</label>
+                    <textarea id="article-text" rows="8" 
+                              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:border-transparent" 
+                              placeholder="Paste the full text of the news article here..."></textarea>
+                </div>
+                
+                <div class="flex justify-end">
+                    <button id="analyze-btn" class="px-6 py-2 bg-primary-light dark:bg-primary-dark text-white rounded-md hover:bg-primary-dark dark:hover:bg-primary-light transition-colors flex items-center">
+                        <span>Analyze</span>
+                        <span id="analyze-spinner" class="ml-2 hidden">
+                            <div class="loading-spinner"></div>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Results Section -->
+            <div id="results-section" class="hidden bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-colors duration-300 fade-in">
+                <h2 class="text-xl font-semibold mb-4">Analysis Results</h2>
+                
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-medium">Authenticity Score</span>
+                        <span id="score-value" class="font-bold text-lg">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+                        <div id="score-bar" class="h-4 rounded-full bg-red-500 transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs mt-1">
+                        <span>Likely Fake</span>
+                        <span>Likely Authentic</span>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h3 class="font-medium mb-2 flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Supporting Evidence</span>
+                        </h3>
+                        <ul id="pro-evidence" class="list-disc list-inside text-sm space-y-1">
+                            <!-- Filled by JavaScript -->
+                        </ul>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <h3 class="font-medium mb-2 flex items-center">
+                            <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                            <span>Contradicting Evidence</span>
+                        </h3>
+                        <ul id="con-evidence" class="list-disc list-inside text-sm space-y-1">
+                            <!-- Filled by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h3 class="font-medium mb-2">Detailed Analysis</h3>
+                    <div id="detailed-analysis" class="text-sm bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                        <!-- Filled by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="flex justify-end">
+                    <button id="new-analysis-btn" class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        New Analysis
+                    </button>
+                </div>
+            </div>
+            
+            <!-- API Info Section -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mt-6 transition-colors duration-300">
+                <h2 class="text-xl font-semibold mb-4">API Integration</h2>
+                <p class="mb-4">Integrate our Fake News Detection API into your applications:</p>
+                
+                <div class="bg-gray-800 rounded-lg p-4 mb-4 overflow-x-auto">
+                    <pre class="text-green-400 text-sm">
+<code>POST https://api.fakenewsdetector.com/v1/analyze
+Content-Type: application/json
+Authorization: Bearer YOUR_API_KEY
+
+{
+    "text": "The full text of the article to analyze...",
+    "url": "https://example.com/article" // optional
+}</code>
+                    </pre>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg p-4 overflow-x-auto">
+                    <pre class="text-green-400 text-sm">
+<code>{
+    "success": true,
+    "result": {
+        "score": 0.85,
+        "authenticity": "likely_authentic",
+        "pro_evidence": ["...", "..."],
+        "con_evidence": ["...", "..."],
+        "analysis": "...",
+        "sources": ["...", "..."],
+        "timestamp": "2023-07-20T12:34:56Z"
+    }
+}</code>
+                    </pre>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="mt-12 text-center text-sm text-gray-500 dark:text-gray-400">
+            <p>© 2023 Fake News Detector. All rights reserved.</p>
+            <p class="mt-1">Data-driven analysis powered by machine learning.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'light') {
+            htmlElement.classList.remove('dark');
+        }
+        
+        // Fake News Detection Functionality
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const articleUrl = document.getElementById('article-url');
+        const articleText = document.getElementById('article-text');
+        const resultsSection = document.getElementById('results-section');
+        const scoreValue = document.getElementById('score-value');
+        const scoreBar = document.getElementById('score-bar');
+        const proEvidence = document.getElementById('pro-evidence');
+        const conEvidence = document.getElementById('con-evidence');
+        const detailedAnalysis = document.getElementById('detailed-analysis');
+        const analyzeSpinner = document.getElementById('analyze-spinner');
+        const newAnalysisBtn = document.getElementById('new-analysis-btn');
+        
+        analyzeBtn.addEventListener('click', analyzeArticle);
+        newAnalysisBtn.addEventListener('click', resetAnalysis);
+        
+        function analyzeArticle() {
+            const url = articleUrl.value.trim();
+            const text = articleText.value.trim();
+            
+            if (!text && !url) {
+                alert('Please enter either article text or a URL');
+                return;
+            }
+            
+            // Show loading spinner
+            analyzeBtn.disabled = true;
+            analyzeSpinner.classList.remove('hidden');
+            
+            // Simulate API call with timeout
+            setTimeout(() => {
+                // Hide spinner
+                analyzeBtn.disabled = false;
+                analyzeSpinner.classList.add('hidden');
+                
+                // For demo purposes, we'll generate fake results
+                // In a real app, you would call your backend API here
+                const fakeResults = generateFakeResults(text, url);
+                
+                // Display results
+                displayResults(fakeResults);
+                
+                // Show results section
+                resultsSection.classList.remove('hidden');
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        }
+        
+        function generateFakeResults(text, url) {
+            // Generate a random score between 0 and 1 (for demo purposes)
+            const score = Math.random();
+            
+            // Determine authenticity label
+            let authenticity;
+            if (score > 0.7) {
+                authenticity = 'likely_authentic';
+            } else if (score > 0.4) {
+                authenticity = 'mixed_evidence';
+            } else {
+                authenticity = 'likely_fake';
+            }
+            
+            // Generate fake evidence points
+            const proEvidencePoints = [
+                "Article cites verifiable sources",
+                "Author has established credibility",
+                "Claims align with fact-checked reports",
+                "Language is neutral and objective"
+            ].sort(() => 0.5 - Math.random()).slice(0, 2 + Math.floor(Math.random() * 2));
+            
+            const conEvidencePoints = [
+                "Anonymous author or unreliable publisher",
+                "Emotional language and sensational claims",
+                "Lack of credible sources or references",
+                "Contradicts established facts",
+                "Recent fact-checks dispute these claims"
+            ].sort(() => 0.5 - Math.random()).slice(0, 2 + Math.floor(Math.random() * 2));
+            
+            // Generate fake detailed analysis
+            const analysis = `This article ${authenticity === 'likely_authentic' ? 'appears to be credible' : 
+                            authenticity === 'likely_fake' ? 'shows several signs of being unreliable' : 
+                            'has mixed indicators of reliability'}. ${authenticity === 'likely_authentic' ? 
+                            'The sources cited are generally trustworthy and the claims align with known facts.' : 
+                            authenticity === 'likely_fake' ? 'Multiple red flags suggest this content may be intentionally misleading.' : 
+                            'Some claims are supported while others lack evidence or contradict reliable sources.'}`;
+            
+            return {
+                score,
+                authenticity,
+                pro_evidence: proEvidencePoints,
+                con_evidence: conEvidencePoints,
+                analysis,
+                sources: url ? [url] : []
+            };
+        }
+        
+        function displayResults(results) {
+            // Update score display
+            const percentage = Math.round(results.score * 100);
+            scoreValue.textContent = `${percentage}%`;
+            
+            // Update score bar color and width
+            scoreBar.style.width = `${percentage}%`;
+            if (percentage > 70) {
+                scoreBar.classList.remove('bg-red-500', 'bg-yellow-500');
+                scoreBar.classList.add('bg-green-500');
+            } else if (percentage > 40) {
+                scoreBar.classList.remove('bg-red-500', 'bg-green-500');
+                scoreBar.classList.add('bg-yellow-500');
+            } else {
+                scoreBar.classList.remove('bg-yellow-500', 'bg-green-500');
+                scoreBar.classList.add('bg-red-500');
+            }
+            
+            // Update evidence lists
+            proEvidence.innerHTML = results.pro_evidence.map(point => `<li>${point}</li>`).join('');
+            conEvidence.innerHTML = results.con_evidence.map(point => `<li>${point}</li>`).join('');
+            
+            // Update detailed analysis
+            detailedAnalysis.textContent = results.analysis;
+        }
+        
+        function resetAnalysis() {
+            // Clear inputs
+            articleUrl.value = '';
+            articleText.value = '';
+            
+            // Hide results section
+            resultsSection.classList.add('hidden');
+            
+            // Reset score display
+            scoreValue.textContent = '0%';
+            scoreBar.style.width = '0%';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
